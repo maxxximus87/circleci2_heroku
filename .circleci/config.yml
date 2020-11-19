@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   run_tests:
     docker:
@@ -20,6 +21,8 @@ jobs:
           path: test-reports
 
   deploy:
+    docker:
+      - image: circleci/python:3.7.4
     steps:
       - checkout
       - run:
@@ -33,10 +36,8 @@ workflows:
       - run_tests
       - deploy:
           requires:
-            - build
+            - run_tests
           filters:
             branches:
               only: master
-      
-
       
