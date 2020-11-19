@@ -18,6 +18,10 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: test-reports
+
+  deploy:
+    steps:
+      - checkout
       - run:
           name: Deploy Master to Heroku
           command: |
@@ -27,5 +31,12 @@ workflows:
   build_test:
     jobs:
       - run_tests
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      
 
       
