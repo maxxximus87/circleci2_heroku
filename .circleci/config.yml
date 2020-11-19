@@ -34,10 +34,6 @@ workflows:
   build_test:
     jobs:
       - run_tests
-      - deploy:
-          requires:
-            - run_tests
-          filters:
-            branches:
-              only: master
+      - deploy
+
       
